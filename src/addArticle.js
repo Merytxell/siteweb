@@ -149,7 +149,7 @@ function displayCart() {
         <p class="text-gray-600">Prix: ${article.price}€</p>
         <p class="text-gray-600">Quantité: ${article.quantity}</p>
         <button onclick="removeFromCart('${article.name}')" class=" border-4 border-sky-800 border-l-sky-500  text-gray-500 px-4 py-2 rounded-md mt-4">Supprimer</button>
-        <button onclick="validate()" class=" border-4 border-sky-800 border-l-sky-500 text-grey-500 px-4 py-2 rounded-md  mt-4 ">Valider</button>
+       
     </div>
 `;
 
@@ -160,6 +160,13 @@ function displayCart() {
     const totalElement = document.createElement("div");
     totalElement.innerHTML = `<p class="text-gray-600 font-bold">Prix total: ${totalPrice}€</p>`;
     cartElement.appendChild(totalElement);
+    
+    const validateButton = document.createElement("button");
+    validateButton.textContent = "Valider";
+    validateButton.classList.add("border-4", "border-sky-800", "border-l-sky-500", "text-grey-500", "px-4", "py-2", "rounded-md", "mt-4");
+    validateButton.onclick = validate;
+    cartElement.appendChild(validateButton);
+
 }
 
 function removeFromCart (articleName){
