@@ -103,6 +103,18 @@ function addToCart (article){
     cart.push(article);
     displayCart();
 }
+
+//afficher formulaire dés validation du panier
+function displayValidation() {
+    console.log("Affichage du formulaire de validation");
+    const validationForm = document.getElementById('validation');
+    validationForm.classList.remove('hidden');
+ }
+ function validate (){
+    displayValidation();
+}
+
+
 //création du panier
 function displayCart() {
     const cartElement = document.getElementById("cart");
@@ -125,7 +137,7 @@ function displayCart() {
         <p class="text-gray-600">Prix: ${article.price}€</p>
         <p class="text-gray-600">Quantité: ${article.quantity}</p>
         <button onclick="removeFromCart('${article.name}')" class="text-grey-500 mt-4">Supprimer</button>
-        <button onclick="validate('${article.name}')" class="text-grey-500 mt-4  mr-8">Valider</button>
+        <button onclick="validate()" class="text-grey-500 mt-4  mr-8">Valider</button>
     </div>
 `;
 
