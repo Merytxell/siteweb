@@ -60,21 +60,35 @@ function displayArticle (){
     console.log(listArticles);
 
     const art= document.getElementById("articles");
-
     listArticles.forEach(a => {
         const articleElement = document.createElement("div");
-        articleElement.innerHTML = `
-        <img src="${a.image}" alt="${a.name}">
-        <p>${a.name}</p>
-        <p>Prix: ${a.price}€</p>
-    
-    `;
+        articleElement.classList.add("relative");
 
-    articleElement.addEventListener('click', () => addToCart(a));
+        const imageElement = document.createElement("img");
+        imageElement.src = a.image;
+        imageElement.alt = a.name;
+        imageElement.classList.add("max-w-full", "h-auto"); 
+        articleElement.appendChild(imageElement);
+
+        const nameElement = document.createElement("p");
+        nameElement.textContent = a.name;
+        nameElement.classList.add("text-gray-800", "font-semibold", "mt-2"); 
+        articleElement.appendChild(nameElement);
+
+        const priceElement = document.createElement("p");
+        priceElement.textContent = `Prix: ${a.price}€`;
+        priceElement.classList.add("text-gray-600"); 
+        articleElement.appendChild(priceElement);
+
+        const addButton = document.createElement("button");
+        addButton.innerHTML = `<img src="assets/card.png" alt="Add to Cart" class="w-6 h-6">`; 
+        addButton.classList.add("absolute", "bottom-0", "right-0", "m-2", "p-1", "bg-gray-200", "rounded-md");
+        addButton.onclick = () => addToCart(a);
+        articleElement.appendChild(addButton);
+
+        art.appendChild(articleElement);
+    });
     
-    art.appendChild(articleElement);
-    }
-    )
 }
 //associe un article à une catégorie
 function displayArticlesByCategory(category) {
@@ -86,9 +100,13 @@ function displayArticlesByCategory(category) {
     filteredArticles.forEach(article => {
         const articleElement = document.createElement("div");
         articleElement.innerHTML = `
-            <img src="${article.image}" alt="${article.name}">
-            <p>${article.name}</p>
-            <p>Prix: ${article.price}€</p>
+        <div class="relative">
+                <img src="${article.image}" alt="${article.name}">
+                <p>${article.name}</p>
+                <p>Prix: ${article.price}€</p>
+                <img src="assets/card.png" alt="Add to Cart" class="w-6 h-6 absolute bottom-0 right-0 mb-1 mr-1 cursor-pointer" onclick="addToCart(${article})">
+            </div>
+    
            
         `;
         articleElement.addEventListener('click', () => addToCart(article));
