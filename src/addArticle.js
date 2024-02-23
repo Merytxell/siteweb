@@ -37,10 +37,9 @@ displayCategories();
 let listArticles =[];
 
 class Article{
-constructor(name,price,quantity,image,category){
+constructor(name,price,image,category){
     this.name=name;
     this.price=price;
-    this.quantity=quantity;
     this.image = image;
     this.category=category;
     
@@ -49,10 +48,10 @@ constructor(name,price,quantity,image,category){
 
 function initArticles(){
     
-    listArticles.push(new Article ("Naruto et Luffy", 25, 5,"assets/lufy_naruto.jpeg","manga"));
-    listArticles.push(new Article ("Minecraft", 40, 10, "assets/minecraft.jpeg","jeux-vidéos"));
-    listArticles.push(new Article ("Rick et Morty", 60, 20, "assets/rickMorty.jpeg","dessins animés"));
-    listArticles.push(new Article ("Jurassik Park", 100, 3, "assets/JurassikPark.jpeg","films"));
+    listArticles.push(new Article ("Naruto et Luffy", 25,"assets/lufy_naruto.jpeg","manga"));
+    listArticles.push(new Article ("Minecraft", 40, "assets/minecraft.jpeg","jeux-vidéos"));
+    listArticles.push(new Article ("Rick et Morty", 60, "assets/rickMorty.jpeg","dessins animés"));
+    listArticles.push(new Article ("Jurassik Park", 100, "assets/JurassikPark.jpeg","films"));
 
 
 }
@@ -67,7 +66,7 @@ function displayArticle (){
         <img src="${a.image}" alt="${a.name}">
         <p>${a.name}</p>
         <p>Prix: ${a.price}€</p>
-        <p>Quantité: ${a.quantity}</p>
+    
     `;
 
     articleElement.addEventListener('click', () => addToCart(a));
@@ -123,21 +122,21 @@ function displayCart() {
     cartElement.innerHTML += `
     <nav class="bg-sky-950 text-white w-96">
         <div class="container mx-auto flex justify-between items-center">
-            <p class="text-2xl font-bold">Votre panier</p>
+            <p class="text-2xl">Votre panier</p>
         </div>
     </nav>
 `;
     
     cart.forEach(article => {
-        const articleElement = document.createElement("li");
-        articleElement.classList.add("panier","bg-sky-50", "shadow-md", "rounded-md", "p-6");
+        const articleElement = document.createElement("p");
+        articleElement.classList.add("panier","bg-white-50", "shadow-md", "rounded-md", "p-6");
         articleElement.innerHTML =  `
         <div class="mt-4">
         <p class="text-gray-600">${article.name}</p>
         <p class="text-gray-600">Prix: ${article.price}€</p>
         <p class="text-gray-600">Quantité: ${article.quantity}</p>
-        <button onclick="removeFromCart('${article.name}')" class="text-grey-500 mt-4">Supprimer</button>
-        <button onclick="validate()" class="text-grey-500 mt-4  mr-8">Valider</button>
+        <button onclick="removeFromCart('${article.name}')" class=" border-4 border-sky-800 border-l-sky-500  text-gray-500 px-4 py-2 rounded-md mt-4">Supprimer</button>
+        <button onclick="validate()" class=" border-4 border-sky-800 border-l-sky-500 text-grey-500 px-4 py-2 rounded-md  mt-4 ">Valider</button>
     </div>
 `;
 
@@ -152,6 +151,24 @@ function removeFromCart (articleName){
     }
     displayCart();
 }
+
+function clearCart() {
+    cart = [];
+    displayCart();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const validationForm = document.getElementById('validation')
+    validationForm.addEventListener("submit",function(e){
+        e.preventDefault();
+
+        validationForm.classList.add("hidden");
+
+        clearCart();
+    });
+    
+});
+ 
 displayArticlesByCategory();
 initArticles();
 displayArticle();
