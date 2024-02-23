@@ -42,6 +42,7 @@ constructor(name,price,image,category){
     this.price=price;
     this.image = image;
     this.category=category;
+    this.quantity = 1; 
     
 }
 }
@@ -99,7 +100,15 @@ let cart = [];
 //ajouter un article au panier 
 
 function addToCart (article){
-    cart.push(article);
+
+    const existArticle = cart.find(item => item.name === article.name);
+
+    if (existArticle){
+        existArticle.quantity++;
+    }else {
+        cart.push(article);
+    }
+    
     displayCart();
 }
 
@@ -118,6 +127,8 @@ function displayValidation() {
 function displayCart() {
     const cartElement = document.getElementById("cart");
     cartElement.innerHTML = "";
+
+    let totalPrice = 0;
 
     cartElement.innerHTML += `
     <nav class="bg-sky-950 text-white w-96">
@@ -141,13 +152,23 @@ function displayCart() {
 `;
 
         cartElement.appendChild(articleElement);
+        totalPrice += article.price * article.quantity;
     });
+
+    const totalElement = document.createElement("div");
+    totalElement.innerHTML = `<p class="text-gray-600 font-bold">Prix total: ${totalPrice}€</p>`;
+    cartElement.appendChild(totalElement);
 }
 
 function removeFromCart (articleName){
     const index = cart.findIndex (article => article.name === articleName);
     if (index !== -1){
+        const article = cart[index];
+        if (article.quantity > 1){
+            article.quantity--;
+        }else {
         cart.splice(index,1);
+        }
     }
     displayCart();
 }
@@ -170,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
  
 displayArticlesByCategory();
+initCategories();
 initArticles();
 displayArticle();
 displayCart();
