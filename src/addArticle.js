@@ -89,8 +89,9 @@ function displayArticlesByCategory(category) {
             <img src="${article.image}" alt="${article.name}">
             <p>${article.name}</p>
             <p>Prix: ${article.price}€</p>
-            <p>Quantité: ${article.quantity}</p>
+           
         `;
+        articleElement.addEventListener('click', () => addToCart(article));
         articles.appendChild(articleElement);
     });
 }
@@ -111,6 +112,7 @@ function addToCart (article){
     
     displayCart();
 }
+
 
 //afficher formulaire dés validation du panier
 function displayValidation() {
@@ -179,17 +181,36 @@ function clearCart() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const validationForm = document.getElementById('validation')
+    const validationForm = document.getElementById('validation');
+
     validationForm.addEventListener("submit",function(e){
         e.preventDefault();
 
-        validationForm.classList.add("hidden");
-
-        clearCart();
+        if(formIsNotEmpty()){
+            alert("merci pour votre commande, à bientôt chez NerdyArtisan ! ")
+            validationForm.classList.add("hidden");
+            clearCart();
+        }else{
+            alert("veuillez remplir tous les champs du formulaire, jeune padawan !")
+        }
+       
     });
     
 });
  
+function formIsNotEmpty() {
+    const name = document.getElementById('idName').value;
+    const prenom = document.getElementById('idPrenom').value;
+    const email = document.getElementById('idEmail').value;
+    const tel = document.getElementById('idTel').value;
+    const address = document.getElementById('idAddress').value;
+
+    if (name && prenom && email && tel && address){
+        return true;
+    }else {
+        return false;
+    }
+}
 displayArticlesByCategory();
 initCategories();
 initArticles();
