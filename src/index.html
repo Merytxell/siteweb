@@ -76,6 +76,32 @@
                             </ul>
                         </div>
                 </section>
+                <form name = "validation" action method = "post" onsubmite="return Verification()">
+                    <label for="idName">
+                        "Nom"
+                    </label>
+                    <input type="text" name="Nom" id="idNom">
+                    <br><br>
+                    <label for="idPrenom">Prénom</label>
+
+                    <input type="text" name="prenom" id="idPrenom">
+                    <br><br>
+
+                    <label for="idEmail">Email <span class="text-danger">*</span></label>
+                    <input type="text" name="email" id="idEmail">
+                    <br><br>
+
+                    <label for="idTel">Téléphone</label>
+                    <input type="text" name="tel" id="idTel">
+                    <br><br>
+
+                    <label for="idAddress">Adresse</label>
+                    <input type="text" name="Address" id="idAddress">
+                    <br><br>
+
+                    <input type="submit" name="valider" value="Envoyer">
+
+                </form>
         
             <footer class ="mt-80">
                 <section class = "w-screen size-18 bg-sky-950 ">
